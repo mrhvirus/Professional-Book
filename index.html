@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cyberpunk App Update - 90% Screen Fit</title>
+    <!-- Google Fonts Integration -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@700&family=Orbitron:wght=500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Global Styles & Reset for Kodular WebView */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Full Screen Background Matrix */
+        html, body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000; /* Pure Black Background */
+        }
+
+        body {
+            color: #fff;
+            font-family: 'Hind Siliguri', 'Orbitron', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            
+            /* ব্যাকগ্রাউন্ড গ্রিড এফেক্ট */
+            background-image: 
+                radial-gradient(rgba(0, 242, 255, 0.15) 1px, transparent 0),
+                radial-gradient(rgba(0, 102, 108, 0.1) 2px, transparent 0);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+
+        /* Ambient Glowing Background Light */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.08) 0%, transparent 80%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Cyberpunk Outer Tech Border Container (90% Width & 90% Height Viewport) */
+        .cyber-border-wrapper {
+            position: relative;
+            z-index: 1;
+            padding: 4px; 
+            background: linear-gradient(135deg, #00f2ff 0%, #00666c 40%, transparent 40%, transparent 60%, #00666c 60%, #00f2ff 100%);
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.25), inset 0 0 20px rgba(0, 242, 255, 0.2);
+            
+            /* উপর-নিচে এবং বাম-ডানে ৯০% স্ক্রিন কাভার */
+            width: 90vw;
+            height: 90vh; 
+            max-width: 500px; 
+            max-height: 750px;
+        }
+
+        /* Corners Tech Elements */
+        .cyber-border-wrapper::before, .cyber-border-wrapper::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border: 3px solid #00f2ff;
+            z-index: 2;
+        }
+        .cyber-border-wrapper::before {
+            top: -6px;
+            left: -6px;
+            border-right: none;
+            border-bottom: none;
+            box-shadow: -3px -3px 12px #00f2ff;
+        }
+        .cyber-border-wrapper::after {
+            bottom: -6px;
+            right: -6px;
+            border-left: none;
+            border-top: none;
+            box-shadow: 3px 3px 12px #00f2ff;
+        }
+
+        /* Main Card Container with Flexbox and Glass Effect Background */
+        .update-card {
+            background: rgba(0, 20, 20, 0.95); /* Glass Effect Card Background */
+            padding: 40px 25px;
+            border-radius: 12px;
+            border-top: 4px solid #00f2ff; /* Main Card Top Border 4px */
+            text-align: center;
+            backdrop-filter: blur(15px);
+            
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; 
+        }
+
+        /* Card Content Inner Alignment */
+        .card-top {
+            width: 100%;
+        }
+
+        /* Typography */
+        .title {
+            font-family: 'Hind Siliguri', sans-serif;
+            font-weight: 700; /* Bold-700 */
+            font-size: 28px; 
+            color: #00f2ff; /* Neon Teal Primary */
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.7);
+        }
+
+        .version-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            color: #00ffcc;
+            opacity: 0.9;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            display: block;
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+        }
+
+        /* Layout Container using Grid */
+        .input-grid {
+            display: grid; /* Layout Grid Style */
+            grid-template-columns: 1fr;
+            margin-bottom: 25px;
+            flex-grow: 1; 
+            align-content: center;
+        }
+
+        /* Changelog / Input Box Style */
+        .changelog-box {
+            background-color: #001a1a; /* Dark Teal Background */
+            border: 2px solid #00666c; /* 2px Border */
+            border-radius: 8px;
+            padding: 20px;
+            color: #fff; /* White Text Color */
+            text-align: left;
+            font-size: 15px;
+            height: 100%;
+            min-height: 150px;
+            max-height: 320px;
+            overflow-y: auto;
+            animation: blink-teal 4s infinite ease-in-out; /* Continuous Loop Animation */
+        }
+
+        .changelog-box h4 {
+            color: #00f2ff;
+            margin-bottom: 12px;
+            font-family: 'Hind Siliguri', sans-serif;
+            font-weight: 700; /* Bold-700 */
+        }
+
+        .changelog-box ul {
+            list-style-type: square;
+            margin-left: 18px;
+            color: #b3ffff;
+            line-height: 1.7;
+        }
+
+        /* Animated Main Button (Anchor Tag) */
+        .update-btn {
+            display: block;
+            width: 100%;
+            background: transparent; /* Transparent Background */
+            border: 2px solid #00f2ff; /* Neon Teal Border */
+            color: #00f2ff;
+            font-family: 'Hind Siliguri', sans-serif;
+            font-weight: 700; /* Bold-700 */
+            font-size: 19px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none; 
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            animation: button-pulse 2s infinite; 
+            margin-top: auto; 
+        }
+
+        /* Hover & Touch Active States */
+        .update-btn:hover, .update-btn:active {
+            background-color: #00f2ff; /* Becomes Neon Teal */
+            color: #000; /* Inside Text Becomes Black */
+            box-shadow: 0 0 25px #00f2ff, 0 0 40px rgba(0, 242, 255, 0.6); /* Glowing Shadow */
+            animation: none; 
+        }
+
+        /* Animations */
+        @keyframes blink-teal {
+            0%, 100% {
+                border-color: #00666c; /* Dim Teal */
+                box-shadow: 0 0 5px rgba(0, 102, 108, 0.3);
+            }
+            50% {
+                border-color: #00f2ff; /* Neon Teal */
+                box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+            }
+        }
+
+        @keyframes button-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.5);
+            }
+            70% {
+                box-shadow: 0 0 0 12px rgba(0, 242, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 242, 255, 0);
+            }
+        }
+
+        /* Custom Scrollbar */
+        .changelog-box::-webkit-scrollbar {
+            width: 5px;
+        }
+        .changelog-box::-webkit-scrollbar-track {
+            background: #001a1a;
+        }
+        .changelog-box::-webkit-scrollbar-thumb {
+            background: #00666c;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cyberpunk Outer Tech Border Wrapper (Locks at 90% Screen Size) -->
+    <div class="cyber-border-wrapper">
+        
+        <!-- Main Card Container -->
+        <div class="update-card">
+            
+            <div class="card-top">
+                <div class="title">নতুন আপডেট</div>
+                <div class="version-tag">VERSION v2.4.0-NEON</div>
+            </div>
+            
+            <!-- Grid Layout Structure for Changelog Box -->
+            <div class="input-grid">
+                <div class="changelog-box">
+                    <h4>কী কী নতুন থাকছে:</h4>
+                    <ul>
+                        <li>সিস্টেম পারফরম্যান্স উন্নত করা হয়েছে।</li>
+                        <li>নতুন সাইবারপাঙ্ক ফুল-স্ক্রিন ইন্টারফেস।</li>
+                        <li>অটোমেটিক APK ডাউনলোড সিস্টেম যুক্তকরণ।</li>
+                        <li>বাগ ফিক্স এবং সিকিউরিটি প্যাচ আপডেট।</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- APK Download Link Button -->
+            <a href="http://update.APK" class="update-btn" id="downloadBtn" onclick="triggerDownload(event)">
+                এখনই আপডেট করুন
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        function triggerDownload(event) {
+            const btn = document.getElementById('downloadBtn');
+            
+            btn.innerText = "ডাউনলোড শুরু হয়েছে...";
+            btn.style.borderColor = "#00FF66";
+            btn.style.color = "#00FF66";
+            btn.style.boxShadow = "0 0 25px #00FF66";
+            btn.style.pointerEvents = "none"; 
+            
+            setTimeout(() => {
+                btn.innerText = "ডাউনলোড সম্পন্ন!";
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
